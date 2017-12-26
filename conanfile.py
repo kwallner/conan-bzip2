@@ -14,7 +14,7 @@ class Bzip2Conan(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = "shared=False", "fPIC=True"
     exports = ["CMakeLists.txt"]
-    url = "https://github.com/lasote/conan-bzip2"
+    url = "https://github.com/kwallner/conan-bzip2"
     license = "BSD-style license"
     description = "bzip2 is a freely available, patent free (see below), high-quality data " \
                   "compressor. It typically compresses files to within 10% to 15% of the best" \
@@ -57,3 +57,5 @@ class Bzip2Conan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ['bz2']
+        if self.settings.build_type == "Debug" and self.settings.compiler == "Visual Studio":
+            self.cpp_info.libs[0] += "d"
