@@ -21,20 +21,20 @@ Download conan client from [Conan.io](https://conan.io) and run:
 
 ## Upload packages to server
 
-    $ conan upload bzip2/1.0.6@conan/testing --all
+    $ conan upload bzip2/1.0.6@kwallner/testing --all
 
 ## Reuse the packages
 
 ### Basic setup
 
-    $ conan install bzip2/1.0.6@conan/testing
+    $ conan install bzip2/1.0.6@kwallner/testing
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    bzip2/1.0.6@conan/testing
+    bzip2/1.0.6@kwallner/testing
 
     [options]
     bzip2:shared=true # false
