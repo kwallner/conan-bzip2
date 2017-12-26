@@ -57,5 +57,5 @@ class Bzip2Conan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ['bz2']
-        if self.settings.build_type == "Debug" and self.settings.compiler == "Visual Studio":
+        if self.settings.build_type == "Debug":
             self.cpp_info.libs[0] += "d"
