@@ -1,0 +1,69 @@
+Only in bzip2-1.0.6: CMakeLists.txt
+diff -u bzip2-1.0.6.orig/bzlib.h bzip2-1.0.6/bzlib.h
+--- bzip2-1.0.6.orig/bzlib.h	2018-01-01 23:08:51.676447400 +0100
++++ bzip2-1.0.6/bzlib.h	2018-01-02 00:17:52.518698600 +0100
+@@ -66,33 +66,44 @@
+    bz_stream;
+ 
+ 
+-#ifndef BZ_IMPORT
+-#define BZ_EXPORT
+-#endif
+-
+ #ifndef BZ_NO_STDIO
+ /* Need a definitition for FILE */
+ #include <stdio.h>
+ #endif
+ 
+-#ifdef _WIN32
+-#   include <windows.h>
+-#   ifdef small
+-      /* windows.h define small to char */
+-#      undef small
+-#   endif
+-#   ifdef BZ_EXPORT
+-#   define BZ_API(func) WINAPI func
+-#   define BZ_EXTERN extern
+-#   else
+-   /* import windows dll dynamically */
+-#   define BZ_API(func) (WINAPI * func)
+-#   define BZ_EXTERN
+-#   endif
++#ifdef bz2_SHARED_LIB
++#ifdef bz2_EXPORTS
++#  ifdef __GNUC__
++#    if defined(_WIN32) && !defined(__CYGWIN__)
++#      define BZ_EXTERN __attribute__((__dllexport__))
++#    else
++#      define BZ_EXTERN __attribute__((__visibility__("default")))
++#    endif
++#  endif
++#  ifdef _MSC_VER
++#    if defined(_WIN32)
++#      define BZ_EXTERN __declspec(dllexport)
++#    endif
++#  endif
+ #else
+-#   define BZ_API(func) func
+-#   define BZ_EXTERN extern
++#  ifdef __GNUC__
++#    if defined(_WIN32) && !defined(__CYGWIN__)
++#      define BZ_EXTERN __attribute__((__dllimport__))
++#    else
++#      define BZ_EXTERN
++#    endif
++#  endif
++#  ifdef _MSC_VER
++#    if defined(_WIN32)
++#      define BZ_EXTERN __declspec(dllimport)
++#    endif
++#  endif
+ #endif
++#else
++#define BZ_EXTERN
++#endif
++
++#define BZ_API(func) func
+ 
+ 
+ /*-- Core (low-level) library functions --*/

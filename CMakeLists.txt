@@ -1,21 +1,36 @@
 project(bzip2)
 cmake_minimum_required(VERSION 2.8)
-include(../conanbuildinfo.cmake)
-CONAN_BASIC_SETUP()
 
-if(MSVC OR MSVC90 OR MSVC10)
-  set(MSVC ON)
-endif (MSVC OR MSVC90 OR MSVC10)
+add_library(bz2 blocksort.c bzlib.c compress.c  crctable.c  decompress.c  huffman.c randtable.c)
+set_target_properties(bz2 PROPERTIES 
+    DEBUG_POSTFIX "d"
+    POSITION_INDEPENDENT_CODE ON
+    )
+if (BUILD_SHARED_LIBS)
+    set_target_properties(bz2 PROPERTIES 
+        INTERFACE_COMPILE_DEFINITIONS "bz2_SHARED_LIB"
+        )
+endif()
 
-set(bzip2_STAT_SRCS blocksort.c bzlib.c compress.c  crctable.c  decompress.c  huffman.c randtable.c)
+install(FILES bzlib.h
+    DESTINATION include
+    )
 
-add_library(bz2 ${bzip2_STAT_SRCS})
-set_target_properties(bz2 PROPERTIES DEBUG_POSTFIX "d")
+install(TARGETS bz2 
+    EXPORT BZip2
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
+    )
 
+install(EXPORT BZip2
+    FILE BZip2Config.cmake
+    DESTINATION .
+    )
+    
 add_executable(bzip2 bzip2.c)
 target_link_libraries(bzip2 bz2)
-
-if(FPIC)
-    MESSAGE(WARNING "ENABLED FPIC")
-	SET_TARGET_PROPERTIES(bz2 PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+install(TARGETS bzip2
+    RUNTIME DESTINATION bin
+    )
