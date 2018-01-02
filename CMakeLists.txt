@@ -1,9 +1,6 @@
 project(bzip2)
 cmake_minimum_required(VERSION 2.8)
 
-include(../conanbuildinfo.cmake)
-CONAN_BASIC_SETUP()
-
 add_library(bz2 blocksort.c bzlib.c compress.c  crctable.c  decompress.c  huffman.c randtable.c)
 set_target_properties(bz2 PROPERTIES 
     DEBUG_POSTFIX "d"
