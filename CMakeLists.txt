@@ -10,6 +10,11 @@ if (BUILD_SHARED_LIBS)
     set_target_properties(bz2 PROPERTIES 
         INTERFACE_COMPILE_DEFINITIONS "bz2_SHARED_LIB"
         )
+    if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU") 
+        set_target_properties(bz2 PROPERTIES 
+            COMPILE_FLAGS "-fvisibility=hidden"
+            )
+    endif()
 endif()
 
 install(FILES bzlib.h
