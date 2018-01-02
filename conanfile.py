@@ -11,8 +11,8 @@ class Bzip2Conan(ConanFile):
     branch = "master"
     generators = "cmake"
     settings = "os", "compiler", "arch", "build_type"
-    options = {"shared": [True, False], "fpic": [True, False]}
-    default_options = "shared=False", "fpic=True"
+    options = {"shared": [True, False], "fPIC": [True, False]}
+    default_options = "shared=False", "fPIC=True"
     url = "https://github.com/kwallner/conan-bzip2"
     license = "BSD-style license"
     description = "bzip2 is a freely available, patent free (see below), high-quality data " \
@@ -44,7 +44,7 @@ class Bzip2Conan(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.definitions["BUILD_SHARED_LIBS"]= self.options.shared
-        cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.shared or self.options.fpic
+        cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.shared or self.options.fPIC
         cmake.configure(source_dir="%s/%s" % (self.source_folder, self.zip_folder_name))
         cmake.build()
         cmake.install()
