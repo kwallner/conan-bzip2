@@ -5,13 +5,13 @@
 
 This repository is forked from https://github.com/lasote/conan-bzip2. 
 
-It is mainly for testing and evaluation purposes. If you need a testing and maintained release please switch to https://github.com/lasote/conan-bzip2. 
+It is mainly for stable and evaluation purposes. If you need a stable and maintained release please switch to https://github.com/lasote/conan-bzip2. 
 
 # conan-bzip2
 
 [Conan.io](https://conan.io) package for BZip2 library. http://www.bzip.org/
 
-The packages generated with this **conanfile** can be found in [conan.io](https://conan.io/source/bzip2/1.0.6/kwallner/testing).
+The packages generated with this **conanfile** can be found in [conan.io](https://conan.io/source/bzip2/1.0.6/kwallner/stable).
 
 ## Build packages
 
@@ -21,20 +21,20 @@ Download conan client from [Conan.io](https://conan.io) and run:
 
 ## Upload packages to server
 
-    $ conan upload bzip2/1.0.6@kwallner/testing --all
+    $ conan upload bzip2/1.0.6@kwallner/stable --all
 
 ## Reuse the packages
 
 ### Basic setup
 
-    $ conan install bzip2/1.0.6@kwallner/testing
+    $ conan install bzip2/1.0.6@kwallner/stable
 
 ### Project setup
 
 If you handle multiple dependencies in your project is better to add a *conanfile.txt*
 
     [requires]
-    bzip2/1.0.6@kwallner/testing
+    bzip2/1.0.6@kwallner/stable
 
     [options]
     bzip2:shared=true # false
